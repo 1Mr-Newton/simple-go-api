@@ -23,12 +23,20 @@
 
 FROM golang:alpine
 
+# Install necessary packages
+RUN apt-get update && apt-get install -y curl wget
+
+# Set the working directory
 WORKDIR /app
 
+# Copy the Go application
 COPY . .
 
-RUN go build -o server .
+# Build the application
+RUN go build -o out
 
+# Expose the application port (if needed)
 EXPOSE 8080
 
-CMD ["./server"]
+# Command to run the application
+CMD ["./out"]
