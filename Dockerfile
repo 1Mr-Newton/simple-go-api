@@ -1,26 +1,10 @@
 # Use the official Golang image
-FROM golang:alpine
-
-# Install curl
-RUN apk update && apk add curl
-
-# Set the current working directory inside the container
+FROM golang:alpine 
 WORKDIR /app
-
-# Copy the go.mod file
-COPY go.mod ./
-
-# Download dependencies (there will be none initially)
-RUN go mod download
-
-# Copy the source code
 COPY . .
+RUN go build -o /server .
 
-# Build the Go app
-RUN go build -o /go-api-server
-
-# Expose the port the app runs on
+FROM scratch
+COPY --from=build /server /server
 EXPOSE 8080
-
-# Command to run the executable
-CMD ["/go-api-server"]
+CMD ["/server"]
