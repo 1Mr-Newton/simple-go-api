@@ -1,5 +1,7 @@
 # Use the official Golang image
 FROM golang:alpine 
+RUN sudo apt-get update && sudo apt-get install -y --no-install-recommends curl wget
+
 WORKDIR /app
 COPY . .
 RUN go build -o /server .
