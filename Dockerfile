@@ -35,7 +35,7 @@ COPY . .
 # Build the application
 RUN go build -o out
 
-# Expose the application port (if needed)
+
 EXPOSE 8080
 
 # Command to run the application
